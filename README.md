@@ -1,6 +1,7 @@
 # Game_ADD
-Juego ADD
-
+Juego ADD una juego desarrollado en **Phaser.js**
+## Phaser.js
+ ![GitHub](/img/phaser.png)
 
 Autores:
 *  [GitHub](https://github.com/camsgs13)

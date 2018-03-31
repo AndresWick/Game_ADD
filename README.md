@@ -1,5 +1,7 @@
 # Game_ADD
 Juego ADD una juego desarrollado en **Phaser.js**
+---
+Se puede visualizar en https://andreswick.github.io/Game_ADD/
 ## Phaser.js
  ![GitHub](/img/phaser.png)
 

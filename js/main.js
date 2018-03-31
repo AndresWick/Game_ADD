@@ -1,10 +1,10 @@
 
 var game = new Phaser.Game(736, 460, Phaser.AUTO, 'phaser-block');
 var fondo;
-var estado = {
+var estadoPrincipal = {
 
     /**
-     * Función encargada de cargar los recursos del juego.
+     * Función encargada de cargar los recursos del estado.
      */
     preload:function() {
         game.stage.backgroundcolor="#000";
@@ -42,5 +42,7 @@ var estado = {
 
 }
 
-game.state.add('principal',estado);
-game.state.start('principal');
+game.state.add('Juego',estadoPrincipal);
+game.state.add('Menu',estadoMenu);
+
+game.state.start('Menu');

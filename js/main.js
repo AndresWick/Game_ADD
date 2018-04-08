@@ -4,6 +4,7 @@ var fondo;
 var personaje;
 var salto;
 var cursores;
+var plataformas;
 var estadoPrincipal = {
 
     /**
@@ -17,6 +18,8 @@ var estadoPrincipal = {
         game.load.spritesheet('dude', 'img/dude.png', 66,76);
         
         game.load.image('tierra', 'img/tierra.png');
+        game.load.image('plataforma1', 'img/plataforma1.png');
+
     },
 
     /**
@@ -26,7 +29,7 @@ var estadoPrincipal = {
         // Se muestra el fondo1
         fondo = game.add.tileSprite(0,0,736,460,'fondo1');
         // Se muestra el personaje principal
-        personaje = game.add.sprite(140,360,'dude');
+        personaje = game.add.sprite(140,360-9,'dude');
         
       //  game.addTilesetImage('tierra');
         
@@ -39,6 +42,63 @@ var estadoPrincipal = {
         
         game.physics.startSystem(Phaser.Physics.ARCADE);
         game.physics.arcade.enable(personaje);
+        
+        plataformas = game.add.group();
+        plataformas.enableBody = true;
+        var piso = plataformas.create(0,game.world.height-32,'tierra');
+        piso.scale.setTo(0.5,0.5);
+        piso = plataformas.create(32,game.world.height-32,'tierra');
+        piso.scale.setTo(0.5,0.5);
+        piso = plataformas.create(64,game.world.height-32,'tierra');
+        piso.scale.setTo(0.5,0.5);
+        piso = plataformas.create(96,game.world.height-32,'tierra');
+        piso.scale.setTo(0.5,0.5);
+        piso = plataformas.create(128,game.world.height-32,'tierra');
+        piso.scale.setTo(0.5,0.5);
+        piso = plataformas.create(160,game.world.height-32,'tierra');
+        piso.scale.setTo(0.5,0.5);
+        piso = plataformas.create(192,game.world.height-32,'tierra');
+        piso.scale.setTo(0.5,0.5);
+        piso = plataformas.create(224,game.world.height-32,'tierra');
+        piso.scale.setTo(0.5,0.5);
+        piso = plataformas.create(256,game.world.height-32,'tierra');
+        piso.scale.setTo(0.5,0.5);
+        piso = plataformas.create(288,game.world.height-32,'tierra');
+        piso.scale.setTo(0.5,0.5);
+        piso = plataformas.create(320,game.world.height-32,'tierra');
+        piso.scale.setTo(0.5,0.5);
+        piso = plataformas.create(352,game.world.height-32,'tierra');
+        piso.scale.setTo(0.5,0.5);
+        piso = plataformas.create(384,game.world.height-32,'tierra');
+        piso.scale.setTo(0.5,0.5);
+        piso = plataformas.create(416,game.world.height-32,'tierra');
+        piso.scale.setTo(0.5,0.5);
+        piso = plataformas.create(448,game.world.height-32,'tierra');
+        piso.scale.setTo(0.5,0.5);
+        piso = plataformas.create(480,game.world.height-32,'tierra');
+        piso.scale.setTo(0.5,0.5);
+        piso = plataformas.create(512,game.world.height-32,'tierra');
+        piso.scale.setTo(0.5,0.5);
+        piso = plataformas.create(544,game.world.height-32,'tierra');
+        piso.scale.setTo(0.5,0.5);
+        piso = plataformas.create(576,game.world.height-32,'tierra');
+        piso.scale.setTo(0.5,0.5);
+        piso = plataformas.create(608,game.world.height-32,'tierra');
+        piso.scale.setTo(0.5,0.5);
+        piso = plataformas.create(640,game.world.height-32,'tierra');
+        piso.scale.setTo(0.5,0.5);
+        piso = plataformas.create(672,game.world.height-32,'tierra');
+        piso.scale.setTo(0.5,0.5);
+        piso = plataformas.create(704,game.world.height-32,'tierra');
+        piso.scale.setTo(0.5,0.5);
+        
+        piso.body.inmovable = true;
+        
+        var barra = plataformas.create(350,200,'plataforma1');
+        barra.body.inmovable = false;
+
+
+        
         cursores = game.input.keyboard.createCursorKeys();
         salto = game.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR);
         salto.onDown.add(this.saltar,this);
@@ -73,7 +133,7 @@ var estadoPrincipal = {
     saltar:function() {
         game.physics.arcade.collide(personaje,personaje);
         personaje.body.velocity.y=-250;
-        personaje.animations.play('right');
+        salto = game.time.now + 750;
     }
 
 }

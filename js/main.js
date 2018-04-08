@@ -14,7 +14,7 @@ var estadoPrincipal = {
         // Se carga el fondo1
         game.load.image('fondo1', 'img/fondo3.jpg');
         // Se carga el personaje principal
-        game.load.spritesheet('dude', 'img/dude2.png', 65,75);
+        game.load.spritesheet('dude', 'img/dude.png', 66,76);
         
         game.load.image('tierra', 'img/tierra.png');
     },
@@ -31,15 +31,18 @@ var estadoPrincipal = {
       //  game.addTilesetImage('tierra');
         
         personaje.frame= 0;
-        personaje.animations.add('correr',[0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24],28,true);
-        personaje.animations.add('parar',[19,20,21,22,23],28,true);
+        personaje.animations.add('correrDerecha',[0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23],28,true); 
+        
+        personaje.animations.add('correrIzquierda',[29,28,27,26,25,24,35,34,33,32,31,30,41,40,39,38,37,36,47,46,45,44,43,42],28,true);
+        personaje.animations.add('detener',[48],28,true);
+
+        
         game.physics.startSystem(Phaser.Physics.ARCADE);
         game.physics.arcade.enable(personaje);
         cursores = game.input.keyboard.createCursorKeys();
         salto = game.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR);
         salto.onDown.add(this.saltar,this);
         personaje.body.collideWorldBounds=true;
-        
         
     },
 
@@ -49,18 +52,18 @@ var estadoPrincipal = {
     update:function() {
         // Se crea animación de movimiento en el fondo
         fondo.tilePosition.x -= 1;
-        personaje.animations.play('correr');
-        //personaje.animations.stop();
         if(cursores.right.isDown){
            personaje.position.x+=2;
-            personaje.animations.play('derecha');
-            personaje.animations.play('correr');
+            personaje.animations.play('correrDerecha');
         }
-        if(cursores.left.isDown){
+        else if(cursores.left.isDown){
            personaje.position.x-=2;
-            personaje.animations.play('izquierda');
+            personaje.animations.play('correrIzquierda');
             //personaje.rotation+=5;
 
+        }else{
+               personaje.position.x-=2;
+            personaje.animations.play('detener');
         }
     
     },

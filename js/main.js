@@ -8,6 +8,7 @@ var cursores;
 var pisos;
 var plataformas;
 var monedas;
+var numSaltos=1;
 var estadoPrincipal = {
 
     /**
@@ -72,8 +73,6 @@ var estadoPrincipal = {
         game.physics.arcade.enable(monedas);
         game.physics.arcade.enable(monedas1);
 
-
-        
         monedas.enableBody=true;
         monedas.body.gravity.y=100;
         monedas.body.bounce.setTo(0.8);
@@ -85,7 +84,6 @@ var estadoPrincipal = {
         personaje.body.gravity.y=1000;
         personaje.body.bounce.setTo(0);
         
-        
 	   // monedas.animations.play('spin');
 	   // 	monedas.body.immovable = true;
 	   // 	monedas.body.allowGravity = false;
@@ -95,7 +93,6 @@ var estadoPrincipal = {
 		    //When the coin leaves the screen, kill it
 		 //   monedas.checkWorldBounds = true;
 		  //  monedas.outOfBoundsKill = true;
-        
         
         cursores = game.input.keyboard.createCursorKeys();
         salto = game.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR);
@@ -116,9 +113,6 @@ var estadoPrincipal = {
         game.physics.arcade.collide(monedas,plataformas);
         game.physics.arcade.collide(personaje,plataformas);
 
-        
-        
-        
         // Se crea animación de movimiento en el fondo
        // fondo.tilePosition.x -= 1;
         monedas.animations.play('spin');
@@ -134,14 +128,20 @@ var estadoPrincipal = {
         }else{
             personaje.animations.play('detener');
         }
+        
+        if(personaje.body.touching.down){
+           numSaltos=1;
+        }
     
     },
     /**
     * Función encargada de animal el salto del personaje.
     */
     saltar:function() {
-        game.physics.arcade.collide(personaje,personaje);
-        personaje.body.velocity.y=-450;
+        if(numSaltos<2){
+            personaje.body.velocity.y=-450;
+            numSaltos++;
+        }
     }
 
 }

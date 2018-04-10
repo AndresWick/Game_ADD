@@ -19,14 +19,14 @@ var estadoPrincipal = {
     preload:function() {
         game.stage.backgroundcolor="#000";
         // Se carga el fondo1
-        game.load.image('fondo1', 'img/fondo3.jpg');
+        game.load.image('fondo1', 'img/hills.png');
         // Se carga el personaje principal
         game.load.spritesheet('dude', 'img/dude.png', 66,76);
         game.load.spritesheet('moneda', 'img/coin.png',30,30);
         game.load.image('tierra', 'img/tierra.png');
         game.load.image('plataforma1', 'img/plataforma1.png');
-
-
+        game.load.image('plataforma2', 'img/plataforma2.png');
+        game.load.image('plataforma3', 'img/plataforma3.png');
     },
 
     /**
@@ -59,18 +59,27 @@ var estadoPrincipal = {
         plataformas.enableBody = true;
         
         var barra = plataformas.create(350,350,'plataforma1');
+        barra.body.enable = true;
+          barra.body.collideWorldBounds=true;
         barra.body.immovable = true;
+        var barra2 = plataformas.create(50,350,'plataforma2');
+        barra2.body.immovable = true;
+        barra2.body.collideWorldBounds=true;
+        var barra3 = plataformas.create(450,250,'plataforma3');
+        barra3.body.immovable = true;
+        barra3.body.blocked = true;
+         barra3.body.collideWorldBounds=true;
 
         monedas = game.add.group();
         monedas.enableBody = true;
 
-        for (var i=1;i<6;i++){
+        for (var i=1;i<16;i++){
              var monedas1 = game.add.sprite(50*i,0,'moneda');
             monedas1.animations.add('spin', [0, 1, 2, 3, 4, 5, 6, 7], 28, true);
             game.physics.arcade.enable(monedas1);
             monedas1.enableBody=true;
             monedas1.body.gravity.y=100;
-            monedas1.body.bounce.setTo(0.8);
+            monedas1.body.bounce.setTo(0.5);
             monedas.add(monedas1);
         }
         
@@ -81,6 +90,7 @@ var estadoPrincipal = {
         
         personaje.body.gravity.y=1000;
         personaje.body.bounce.setTo(0);
+        personaje.body.collideWorldBounds = true;
 
         
         cursores = game.input.keyboard.createCursorKeys();
@@ -122,6 +132,9 @@ var estadoPrincipal = {
         
         if(personaje.body.touching.down){
            numSaltos=1;
+        }
+         if(personaje.body.touching.left){
+           alert("left");
         }
     
     },

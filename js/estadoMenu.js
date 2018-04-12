@@ -18,7 +18,7 @@ var estadoMenu = {
      */
     create:function() {
         
-        fondoMenu = game.add.tileSprite(0,0,746,626,'fondoMenu');
+        fondoMenu = game.add.tileSprite(0,0,900,660,'fondoMenu');
 
         var boton = this.add.button(game.width/2-245,game.height/2-160,'boton',this.iniciarJuego,this);
         

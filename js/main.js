@@ -11,6 +11,7 @@ var monedas;
 var numSaltos=1;
 var puntaje=0;
 var txtPuntaje;
+var pergaminos;
 var estadoPrincipal = {
 
     /**
@@ -27,6 +28,9 @@ var estadoPrincipal = {
         game.load.image('plataforma1', 'img/plataforma1.png');
         game.load.image('plataforma2', 'img/plataforma2.png');
         game.load.image('plataforma3', 'img/plataforma3.png');
+        game.load.image('pergamino', 'img/pergamino.png');
+        game.load.image('pergaminoDesplegado', 'img/pergaminodesplegado.png');
+
     },
 
     /**
@@ -58,6 +62,17 @@ var estadoPrincipal = {
         
         plataformas = game.add.group();
         plataformas.enableBody = true;
+        
+        pergaminos = game.add.group();
+        pergaminos.enableBody = true;
+        
+        var pergamino = pergaminos.create(62,67,'pergamino');
+        pergamino.body.immovable = true;
+        pergamino.body.collideWorldBounds = true;
+        pergamino.scale.setTo(0.2,0.2);
+        
+        pergamino.body.checkCollision.up = false;
+	   // pergamino.body.checkCollision.down = true;
         
         var barra = plataformas.create(350,350,'plataforma1');
         barra.body.immovable = true;
@@ -172,7 +187,7 @@ var estadoPrincipal = {
         monedas = game.add.group();
         monedas.enableBody = true;
 
-        for (var i=1;i<16;i++){
+        for (var i=3;i<16;i++){
              var monedas1 = game.add.sprite(50*i,0,'moneda');
             monedas1.animations.add('spin', [0, 1, 2, 3, 4, 5, 6, 7], 28, true);
             game.physics.arcade.enable(monedas1);
@@ -210,16 +225,15 @@ var estadoPrincipal = {
      * Función encargada de animar el juego.
      */
     update:function() {
-        
         game.physics.arcade.collide(monedas,pisos);
         game.physics.arcade.collide(personaje,pisos);
         game.physics.arcade.collide(monedas,plataformas);
-        game.physics.arcade.collide(plataformas,personaje,function(){
-        });
-        game.physics.arcade.overlap(personaje,monedas,estadoPrincipal.recolectar,null,this);
+        game.physics.arcade.collide(plataformas,personaje);
+        game.physics.arcade.collide(personaje,pergaminos);
+        game.physics.arcade.overlap(personaje,monedas,estadoPrincipal.recolectarMonedas,null,this);
+        game.physics.arcade.overlap(personaje,pergaminos,estadoPrincipal.recolectarPergaminos,null,this);
+
         
-        // Se crea animación de movimiento en el fondo
-       // fondo.tilePosition.x -= 1;
        // Se animan todas las monedas
         for (var i = 0, len = monedas.children.length; i < len; i++) {    monedas.children[i].animations.play('spin');
         }
@@ -255,10 +269,21 @@ var estadoPrincipal = {
     /**
     * Función encargada de recolectar monedas.
     */
-     recolectar:function(person,mon) {
+     recolectarMonedas:function(person,mon) {
         mon.kill();
          puntaje+=10;
          txtPuntaje.text='Puntaje: '+puntaje;
+    },
+    recolectarPergaminos:function(person,perg) {
+             // alert("Pergamino :D");
+            if(puntaje>100){
+                perg.kill();
+                alert("pergaminooo");
+              //   var pergamino = pergaminos.create(62,67,'pergaminoDesplegado');
+            //    pergamino.body.immovable = true;
+              //  pergamino.body.collideWorldBounds = true;
+            //    pergamino.scale.setTo(0.2,0.2);
+            }
     }
 
 }

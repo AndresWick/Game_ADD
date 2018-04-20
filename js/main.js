@@ -12,6 +12,7 @@ var numSaltos=1;
 var puntaje=0;
 var txtPuntaje;
 var pergaminos;
+var pergaminosDesplegados;
 var estadoPrincipal = {
 
     /**
@@ -30,6 +31,7 @@ var estadoPrincipal = {
         game.load.image('plataforma3', 'img/plataforma3.png');
         game.load.image('pergamino', 'img/pergamino.png');
         game.load.image('pergaminoDesplegado', 'img/pergaminodesplegado.png');
+        game.load.image('btnXPergamino', 'img/btnX.png');
 
     },
 
@@ -41,8 +43,7 @@ var estadoPrincipal = {
         fondo = game.add.tileSprite(0,0,1200,660,'fondo1');
         // Se muestra el personaje principal
         personaje = game.add.sprite(30,600-50,'dude');
-      
-        
+    
         personaje.animations.add('correrDerecha',[0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23],28,true); 
         
         personaje.animations.add('correrIzquierda',[29,28,27,26,25,24,35,34,33,32,31,30,41,40,39,38,37,36,47,46,45,44,43,42],28,true);
@@ -65,6 +66,9 @@ var estadoPrincipal = {
         
         pergaminos = game.add.group();
         pergaminos.enableBody = true;
+        
+        pergaminosDesplegados = game.add.group();
+        pergaminosDesplegados.enableBody = true;
         
         var pergamino = pergaminos.create(62,67,'pergamino');
         pergamino.body.immovable = true;
@@ -200,7 +204,6 @@ var estadoPrincipal = {
         
         game.physics.startSystem(Phaser.Physics.ARCADE);
         game.physics.arcade.enable(personaje);
-        game.camera.follow(personaje);
         
         personaje.body.gravity.y=1000;
         personaje.body.bounce.setTo(0);
@@ -232,10 +235,9 @@ var estadoPrincipal = {
         game.physics.arcade.collide(personaje,pergaminos);
         game.physics.arcade.overlap(personaje,monedas,estadoPrincipal.recolectarMonedas,null,this);
         game.physics.arcade.overlap(personaje,pergaminos,estadoPrincipal.recolectarPergaminos,null,this);
-
         
        // Se animan todas las monedas
-        for (var i = 0, len = monedas.children.length; i < len; i++) {    monedas.children[i].animations.play('spin');
+        for (var i = 0, len = monedas.children.length; i < len; i++) { monedas.children[i].animations.play('spin');
         }
 
         if(cursores.right.isDown){
@@ -254,7 +256,6 @@ var estadoPrincipal = {
         if(personaje.body.touching.down){
            numSaltos=1;
         }
-      
     
     },
     /**
@@ -278,11 +279,20 @@ var estadoPrincipal = {
              // alert("Pergamino :D");
             if(puntaje>100){
                 perg.kill();
-                alert("pergaminooo");
-              //   var pergamino = pergaminos.create(62,67,'pergaminoDesplegado');
+                 //person.body.moves = false;
+                 var pergamino2 = pergaminosDesplegados.create(162,150,'pergaminoDesplegado');
+                 pergamino2.scale.setTo(0.7,0.7);
+                 var btnX2 = pergaminosDesplegados.create(170,167,'btnXPergamino');
+                 btnX2.scale.setTo(0.1,0.1);
+                 btnX2.inputEnabled = true;
+                 btnX2.events.onInputDown.add(function(){
+                     pergamino2.kill();
+                     btnX2.kill();
+                 }, this);
+                
+                
             //    pergamino.body.immovable = true;
               //  pergamino.body.collideWorldBounds = true;
-            //    pergamino.scale.setTo(0.2,0.2);
             }
     }
 

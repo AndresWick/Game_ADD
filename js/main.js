@@ -32,7 +32,7 @@ var estadoPrincipal = {
         game.load.image('plataforma2', 'img/plataforma2.png');
         game.load.image('plataforma3', 'img/plataforma3.png');
         game.load.image('pergamino', 'img/pergamino.png');
-        game.load.image('pergaminoDesplegado', 'img/pergaminodesplegado.png');
+        game.load.image('pergaminoDesplegado', 'img/pergaminoDesplegado.png');
         game.load.image('btnXPergamino', 'img/btnX.png');
         game.load.audio("sonidoMoneda","sounds/coin.mp3");
         game.load.audio("sonidoSalto","sounds/jump.mp3");
@@ -309,6 +309,7 @@ var estadoPrincipal = {
 }
 
 game.state.add('Juego',estadoPrincipal);
+game.state.add('Juego2',estadoSecundario);
 game.state.add('Menu',estadoMenu);
 
 game.state.start('Menu');

@@ -28,7 +28,7 @@ var estadoMenu = {
     },
 
     iniciarJuego:function(){
-        this.state.start('Juego');
+        this.state.start('Juego2');
     }
 
 }

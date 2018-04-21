@@ -13,6 +13,8 @@ var puntaje=0;
 var txtPuntaje;
 var pergaminos;
 var pergaminosDesplegados;
+var sonidoSalto;
+var sonidoMoneda;
 var estadoPrincipal = {
 
     /**
@@ -32,6 +34,10 @@ var estadoPrincipal = {
         game.load.image('pergamino', 'img/pergamino.png');
         game.load.image('pergaminoDesplegado', 'img/pergaminodesplegado.png');
         game.load.image('btnXPergamino', 'img/btnX.png');
+        game.load.audio("sonidoMoneda","sounds/coin.mp3");
+        game.load.audio("sonidoSalto","sounds/jump.mp3");
+        game.load.spritesheet('sound-control', 'img/sound-control.png', 48, 40);
+
 
     },
 
@@ -39,6 +45,8 @@ var estadoPrincipal = {
      * Función encargada de mostrar los recursos en pantalla.
      */
     create:function() {
+        sonidoSalto= game.add.audio("sonidoSalto");
+        sonidoMoneda= game.add.audio("sonidoMoneda");
         // Se muestra el fondo1
         fondo = game.add.tileSprite(0,0,1200,660,'fondo1');
         // Se muestra el personaje principal
@@ -263,6 +271,7 @@ var estadoPrincipal = {
     */
     saltar:function() {
         if(numSaltos<2){
+            sonidoSalto.play();
             personaje.body.velocity.y=-450;
             numSaltos++;
         }
@@ -272,6 +281,7 @@ var estadoPrincipal = {
     */
      recolectarMonedas:function(person,mon) {
         mon.kill();
+        sonidoMoneda.play();
          puntaje+=10;
          txtPuntaje.text='Puntaje: '+puntaje;
     },

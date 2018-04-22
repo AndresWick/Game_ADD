@@ -1,3 +1,6 @@
+var txtPergaminoError;
+var movX;
+var movY;
 var estadoSecundario = {
 
     /**
@@ -27,6 +30,9 @@ var estadoSecundario = {
      * Función encargada de mostrar los recursos en pantalla.
      */
     create:function() {
+        puntaje=0;
+        movX=2;
+        movY=450;
         sonidoSalto= game.add.audio("sonidoSalto");
         sonidoMoneda= game.add.audio("sonidoMoneda");
         // Se muestra el fondo1
@@ -120,8 +126,8 @@ var estadoSecundario = {
         pergaminosDesplegados.enableBody = true;
         
         var pergamino1 = pergaminos.create(455,47,'pergamino');
-        var pergamino2 = pergaminos.create(540,97,'pergamino');
-        var pergamino3 = pergaminos.create(540,187,'pergamino');
+        var pergamino2 = pergaminos.create(540,97,'pergamino'); //rama correcta
+        var pergamino3 = pergaminos.create(540,187,'pergamino');//rama correcta
         var pergamino4 = pergaminos.create(455,237,'pergamino');
         var pergamino5 = pergaminos.create(540,382,'pergamino');
         var pergamino6 = pergaminos.create(540,472,'pergamino');
@@ -136,14 +142,14 @@ var estadoSecundario = {
         pergamino1.body.checkCollision.right = true;
 	    pergamino1.body.checkCollision.down = false;
         
-        pergamino2.body.immovable = true;
+        pergamino2.body.immovable = true; //Fin rama correcta 0.8
         pergamino2.body.collideWorldBounds = true;
         pergamino2.scale.setTo(0.2,0.2);
         pergamino2.body.checkCollision.up = false;
         pergamino2.body.checkCollision.right = true;
 	    pergamino2.body.checkCollision.down = false;
         
-        pergamino3.body.immovable = true;
+        pergamino3.body.immovable = true; //Fin rama correcta 0.2
         pergamino3.body.collideWorldBounds = true;
         pergamino3.scale.setTo(0.2,0.2);
         pergamino3.body.checkCollision.up = false;
@@ -295,14 +301,14 @@ var estadoSecundario = {
         }
 
         if(cursores.right.isDown){
-           personaje.position.x+=2;
+           personaje.position.x+=movX;
             personaje.animations.play('correrDerecha');
         }
         else if(cursores.left.isDown){
-           personaje.position.x-=2;
+           personaje.position.x-=movX;
             personaje.animations.play('correrIzquierda');
         }else if(cursores.up.isDown){
-            estadoPrincipal.saltar();
+            estadoSecundario.saltar();
         }else{
             personaje.animations.play('detener');
         }
@@ -319,7 +325,7 @@ var estadoSecundario = {
     saltar:function() {
         if(numSaltos<2){
             sonidoSalto.play();
-            personaje.body.velocity.y=-450;
+            personaje.body.velocity.y=-movY;
             numSaltos++;
         }
     },
@@ -333,8 +339,38 @@ var estadoSecundario = {
          txtPuntaje.text='Puntaje: '+puntaje;
     },
     recolectarPergaminos:function(person,perg) {
+        //personaje.body.gravity.y=0;
+        
+        
              // alert("Pergamino :D");
             if(puntaje>100){
+                //Se detiene el movimiento del jugador para que no tome mas pergaminos 
+                personaje.body.gravity.y=0;
+                //cursores = game.input.keyboard.addKey(Phaser.Keyboard.Q);
+                movX=0;
+                movY=0;
+                if((perg.x===540 && perg.y===97) || (perg.x===540 && perg.y===187)){ //Verifica que sean los pergaminos de la rama correcta
+                 perg.kill();    
+                 var pergaminoDes = pergaminosDesplegados.create(162,150,'pergaminoDesplegado');
+                 pergaminoDes.scale.setTo(0.7,0.7);
+                 var btnX2 = pergaminosDesplegados.create(170,167,'btnXPergamino');
+                 btnX2.scale.setTo(0.1,0.1);
+                 btnX2.inputEnabled = true;
+                 btnX2.events.onInputDown.add(function(){
+                     pergaminoDes.kill();
+                     txtPergaminoError.kill();
+                     btnX2.kill();
+                    alert("Juego terminado. Éxitos.");
+                    game.state.start('Menu');
+                 }, this);
+                    if(perg.y===97){
+                        txtPergaminoError=game.add.text(230,220,correcto_1,{fontSize:'20px',fill:'#000000'});
+                    }else{
+                        if(perg.y===187){
+                        txtPergaminoError=game.add.text(230,220,correcto_2,{fontSize:'20px',fill:'#000000'});                            
+                        }
+                    }
+                   }else{
                 perg.kill();
                  //person.body.moves = false;
                  var pergaminoDes = pergaminosDesplegados.create(162,150,'pergaminoDesplegado');
@@ -344,13 +380,33 @@ var estadoSecundario = {
                  btnX2.inputEnabled = true;
                  btnX2.events.onInputDown.add(function(){
                      pergaminoDes.kill();
+                     txtPergaminoError.kill();
                      btnX2.kill();
+                    alert("Juego perdido. Éxitos.");
+                    game.state.start('Menu');
                  }, this);
+                    txtPergaminoError=game.add.text(230,220,"Rama incorrecta.\n"+error_7+" \n Vuelva a intentarlo.",{fontSize:'20px',fill:'#000000'});
+                   }
                 
                 
             //    pergamino.body.immovable = true;
               //  pergamino.body.collideWorldBounds = true;
             }
+        
     }
 
 }
+
+
+//Mensajes de pergaminos erroneos
+var error_1 = "Analizar decisiones secuenciales basadas \n en el uso de probabilidades asociadas y \n resultados anteriores es la aplicación más \n común de los ADD. \n";
+var error_2 = "En cuanto a los procesos de apoyo en la \n toma de decisiones e inteligencia artificial, \n los ADD son  una herramienta de importante \n aplicación. \n";
+var error_3 = "Los ADD son definidos como grafos que \n representan un proceso de decisión de \n forma extensiva y predictiva. \n";
+var error_4 = "Los nodos de probabilidades en un árbol \n de decisión son representados por medio de \n  círculos. Para este videojuego, ¿recuerdas \n qué color de plataforma representa \n estos nodos? \n ";
+var error_5 = "Los nodos de decisión en un árbol \n de decisión son representados por medio de \n cuadrados. Para este videojuego, ¿recuerdas \n qué color de plataforma representa \n estos nodos?. \n";
+var error_6 = "La estructura de los árboles de \n decisión consiste en árboles binarios o \n como árboles de juego, siempre considerando \n al menos dos alternativas de decisión \n y probabilidades a priori y a posteriori. \n";
+var error_7 = "Para trabajar sobre árboles de \n decisión puedes usar software como \n LucidChart, DIA, ConceptDrawOffice, \n CardRunners EV, Precision Tree, \n Modeler SPSS Statistics y Treeplan. \n";
+
+//Mensajes de rama correcta
+var correcto_1 = "¡Felicitaciones! Elegiste la rama\n correcta, este evento tiene una probabilidad\n de 0.8 y una ganancia de $300, así que lo\n más seguro es que obtengas una buena\n recompensa.\n ¡Gracias por jugar!.";
+var correcto_2 = "¡Felicitaciones! Elegiste la rama\n correcta, este evento tiene una probabilidad\n de 0.2 y una pérdida de -$100, así que es\n un poco probable que no pierdas tu\n recompensa, sin embargo es la \n mejor opción. ¡Gracias por jugar!.";

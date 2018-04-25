@@ -1,6 +1,7 @@
 var txtPergaminoError;
 var movX;
 var movY;
+var txtDatos;
 var estadoSecundario = {
 
     /**
@@ -125,15 +126,15 @@ var estadoSecundario = {
         pergaminosDesplegados = game.add.group();
         pergaminosDesplegados.enableBody = true;
         
-        var pergamino1 = pergaminos.create(455,47,'pergamino');
-        var pergamino2 = pergaminos.create(540,97,'pergamino'); //rama correcta
-        var pergamino3 = pergaminos.create(540,187,'pergamino');//rama correcta
-        var pergamino4 = pergaminos.create(455,237,'pergamino');
-        var pergamino5 = pergaminos.create(540,382,'pergamino');
-        var pergamino6 = pergaminos.create(540,472,'pergamino');
-        var pergamino7 = pergaminos.create(405,472,'pergamino');
-        var pergamino8 = pergaminos.create(405,567,'pergamino');
-        var pergamino9 = pergaminos.create(270,382,'pergamino'); 
+        var pergamino1 = pergaminos.create(480,47,'pergamino');
+        var pergamino2 = pergaminos.create(565,97,'pergamino'); //rama correcta
+        var pergamino3 = pergaminos.create(565,187,'pergamino');//rama correcta
+        var pergamino4 = pergaminos.create(480,237,'pergamino');
+        var pergamino5 = pergaminos.create(565,382,'pergamino');
+        var pergamino6 = pergaminos.create(565,472,'pergamino');
+        var pergamino7 = pergaminos.create(430,472,'pergamino');
+        var pergamino8 = pergaminos.create(430,567,'pergamino');
+        var pergamino9 = pergaminos.create(295,382,'pergamino'); 
         
         pergamino1.body.immovable = true;
         pergamino1.body.collideWorldBounds = true;
@@ -250,7 +251,7 @@ var estadoSecundario = {
         monedas.enableBody = true;
 
         for (var i=3;i<16;i++){
-             var monedas1 = game.add.sprite(50*i,0,'moneda');
+             var monedas1 = game.add.sprite(30*i,0,'moneda');
             monedas1.animations.add('spin', [0, 1, 2, 3, 4, 5, 6, 7], 28, true);
             game.physics.arcade.enable(monedas1);
             monedas1.enableBody=true;
@@ -316,6 +317,58 @@ var estadoSecundario = {
         if(personaje.body.touching.down){
            numSaltos=1;
         }
+        
+        switch(puntaje){
+        //Aqui se agregan al mapa las ganancias y probabilidades
+            //ganancias
+            case 10:
+                //txtDatos=game.add.text(455,0,ganancias.nodo1_1,{fontsize:'10px',fill:'#fff'});
+                game.add.text(455,47,ganancias.nodo1_1,{fontsize:'10px',fill:'#fff'});
+                break;
+            case 30:
+                game.add.text(540,97,ganancias.nodo1_2,{fontsize:'10px',fill:'#fff'});
+                game.add.text(540,187,ganancias.nodo2_1,{fontsize:'10px',fill:'#fff'});
+                break;
+            case 50:
+                game.add.text(455,237,ganancias.nodo2_2,{fontsize:'10px',fill:'#fff'});
+                break;
+            case 70:
+                game.add.text(540,382,ganancias.nodo3_1,{fontsize:'10px',fill:'#fff'});
+                break;
+            case 90:
+                game.add.text(540,472,ganancias.nodo3_2,{fontsize:'10px',fill:'#fff'});
+                game.add.text(405,472,ganancias.nodo4_1,{fontsize:'10px',fill:'#fff'});
+                break;
+            case 110:
+                game.add.text(405,567,ganancias.nodo4_2,{fontsize:'10px',fill:'#fff'});
+                break;
+            case 130:
+                game.add.text(270,382,ganancias.nodo5_1,{fontsize:'10px',fill:'#fff'});
+                break;
+            //probabilidades
+            case 20:
+                game.add.text(288,236,probabilidades.nodo1_1,{fontsize:'10px',fill:'#fff'});
+                game.add.text(288,304,probabilidades.nodo1_2,{fontsize:'10px',fill:'#fff'});
+                break;
+            case 40:
+                game.add.text(534,157,probabilidades.nodo2_1,{fontsize:'10px',fill:'#fff'});
+                break;
+            case 60:
+                game.add.text(534,188,probabilidades.nodo2_2,{fontsize:'10px',fill:'#fff'});
+                break;
+            case 80:
+                game.add.text(534,444,probabilidades.nodo3_1,{fontsize:'10px',fill:'#fff'});
+                game.add.text(534,474,probabilidades.nodo3_2,{fontsize:'10px',fill:'#fff'});
+                break;
+            case 100:
+                game.add.text(393,537,probabilidades.nodo4_1,{fontsize:'10px',fill:'#fff'});
+                break;
+            case 120:
+                game.add.text(393,577,probabilidades.nodo4_2,{fontsize:'10px',fill:'#fff'});
+                break;
+        }
+        
+        
       
     
     },
@@ -343,7 +396,7 @@ var estadoSecundario = {
         
         
              // alert("Pergamino :D");
-            if(puntaje>100){
+            if(puntaje>129){
                 //Se detiene el movimiento del jugador para que no tome mas pergaminos 
                 personaje.body.gravity.y=0;
                 //cursores = game.input.keyboard.addKey(Phaser.Keyboard.Q);
@@ -397,6 +450,29 @@ var estadoSecundario = {
 
 }
 
+var probabilidades = 
+    {
+        "nodo1_1": "0.7",
+        "nodo1_2": "0.3",
+        "nodo2_1": "0.8",
+        "nodo2_2": "0.2",
+        "nodo3_1": "0.1",
+        "nodo3_2": "0.9",
+        "nodo4_1": "0.55",
+        "nodo4_2": "0.45"
+    }
+var ganancias = 
+    {
+        "nodo1_1": "0",
+        "nodo1_2": "300",
+        "nodo2_1": "-100",
+        "nodo2_2": "0",
+        "nodo3_1": "300",
+        "nodo3_2": "-100",
+        "nodo4_1": "0",
+        "nodo4_2": "300",
+        "nodo5_1": "-100"
+    }
 
 //Mensajes de pergaminos erroneos
 var error_1 = "Analizar decisiones secuenciales basadas \n en el uso de probabilidades asociadas y \n resultados anteriores es la aplicación más \n común de los ADD. \n";

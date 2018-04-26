@@ -322,55 +322,52 @@ var estadoSecundario = {
         //Aqui se agregan al mapa las ganancias y probabilidades
             //ganancias
             case 10:
-                //txtDatos=game.add.text(455,0,ganancias.nodo1_1,{fontsize:'10px',fill:'#fff'});
-                game.add.text(455,47,ganancias.nodo1_1,{fontsize:'10px',fill:'#fff'});
+             //txtDatos=game.add.text(455,0,ganancias.nodo1_1,{fontsize:'10px',fill:'#fff'});
+                game.add.text(455,47,ganancias.nodo1_1,{fontSize:'20px',fill:'#fff'});
                 break;
             case 30:
-                game.add.text(540,97,ganancias.nodo1_2,{fontsize:'10px',fill:'#fff'});
-                game.add.text(540,187,ganancias.nodo2_1,{fontsize:'10px',fill:'#fff'});
+                game.add.text(540,97,ganancias.nodo1_2,{fontSize:'20px',fill:'#fff'});
+                game.add.text(540,197,ganancias.nodo2_1,{fontSize:'20px',fill:'#fff'});
                 break;
             case 50:
-                game.add.text(455,237,ganancias.nodo2_2,{fontsize:'10px',fill:'#fff'});
+                game.add.text(455,237,ganancias.nodo2_2,{fontSize:'20px',fill:'#fff'});
                 break;
             case 70:
-                game.add.text(540,382,ganancias.nodo3_1,{fontsize:'10px',fill:'#fff'});
+                game.add.text(540,382,ganancias.nodo3_1,{fontSize:'20px',fill:'#fff'});
                 break;
             case 90:
-                game.add.text(540,472,ganancias.nodo3_2,{fontsize:'10px',fill:'#fff'});
-                game.add.text(405,472,ganancias.nodo4_1,{fontsize:'10px',fill:'#fff'});
+                game.add.text(540,482,ganancias.nodo3_2,{fontSize:'20px',fill:'#fff'});
+                game.add.text(405,472,ganancias.nodo1_2,{fontSize:'20px',fill:'#fff'});
                 break;
             case 110:
-                game.add.text(405,567,ganancias.nodo4_2,{fontsize:'10px',fill:'#fff'});
+                game.add.text(385,560,'0.45',{fontSize:'15px',fill:'#fff'});
                 break;
             case 130:
-                game.add.text(270,382,ganancias.nodo5_1,{fontsize:'10px',fill:'#fff'});
+                game.add.text(270,382,ganancias.nodo4_1,{fontSize:'20px',fill:'#fff'});
                 break;
             //probabilidades
             case 20:
-                game.add.text(288,236,probabilidades.nodo1_1,{fontsize:'10px',fill:'#fff'});
-                game.add.text(288,304,probabilidades.nodo1_2,{fontsize:'10px',fill:'#fff'});
+                game.add.text(272,226,probabilidades.nodo1_1,{fontSize:'15px',fill:'#fff'});
+                game.add.text(288,304,probabilidades.nodo1_2,{fontSize:'15px',fill:'#fff'});
                 break;
             case 40:
-                game.add.text(534,157,probabilidades.nodo2_1,{fontsize:'10px',fill:'#fff'});
+                game.add.text(530,145,probabilidades.nodo2_1,{fontSize:'15px',fill:'#fff'});
                 break;
             case 60:
-                game.add.text(534,188,probabilidades.nodo2_2,{fontsize:'10px',fill:'#fff'});
+                game.add.text(530,180,probabilidades.nodo2_2,{fontSize:'15px',fill:'#fff'});
                 break;
             case 80:
-                game.add.text(534,444,probabilidades.nodo3_1,{fontsize:'10px',fill:'#fff'});
-                game.add.text(534,474,probabilidades.nodo3_2,{fontsize:'10px',fill:'#fff'});
+                game.add.text(528,434,'0.1',{fontSize:'15px',fill:'#fff'});
+                game.add.text(528,464,'0.9',{fontSize:'15px',fill:'#fff'});
                 break;
             case 100:
-                game.add.text(393,537,probabilidades.nodo4_1,{fontsize:'10px',fill:'#fff'});
+                game.add.text(380,522,probabilidades.nodo4_1,{fontSize:'15px',fill:'#fff'});
                 break;
             case 120:
-                game.add.text(393,577,probabilidades.nodo4_2,{fontsize:'10px',fill:'#fff'});
+                game.add.text(393,587,'-100',{fontSize:'20px',fill:'#fff'});
                 break;
         }
         
-        
-      
-    
     },
     /**
     * Función encargada de animal el salto del personaje.

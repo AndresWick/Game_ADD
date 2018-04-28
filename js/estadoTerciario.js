@@ -24,7 +24,6 @@ var estadoTerciario = {
         game.load.image('btnXPergamino', 'img/btnX.png');
         game.load.audio("sonidoMoneda","sounds/coin.mp3");
         game.load.audio("sonidoSalto","sounds/jump.mp3");
-        game.load.spritesheet('sound-control', 'img/sound-control.png', 48, 40);
 
     },
 
@@ -244,10 +243,6 @@ var estadoTerciario = {
         barra8.body.collideWorldBounds = true;
         barra8.scale.setTo(0.6,0.6);
         
-                    
-        
-                         
-
         monedas = game.add.group();
         monedas.enableBody = true;
 
@@ -294,8 +289,8 @@ var estadoTerciario = {
         game.physics.arcade.collide(monedas,plataformas);
         game.physics.arcade.collide(plataformas,personaje);
         game.physics.arcade.collide(personaje,pergaminos);
-        game.physics.arcade.overlap(personaje,monedas,estadoSecundario.recolectarMonedas,null,this);
-        game.physics.arcade.overlap(personaje,pergaminos,estadoSecundario.recolectarPergaminos,null,this);
+        game.physics.arcade.overlap(personaje,monedas,estadoTerciario.recolectarMonedas,null,this);
+        game.physics.arcade.overlap(personaje,pergaminos,estadoTerciario.recolectarPergaminos,null,this);
 
         
        // Se animan todas las monedas
@@ -327,7 +322,7 @@ var estadoTerciario = {
                tt= game.add.text(455,47,ganancias2.nodo1_1,{fontSize:'20px',fill:'#fff'});
                 break;
             case 30:
-                game.add.text(540,97,ganancias2.nodo1_2,{fontSize:'20px',fill:'#fff'});
+                game.add.text(540,97,'420',{fontSize:'20px',fill:'#fff'});
                 game.add.text(540,197,ganancias2.nodo2_1,{fontSize:'20px',fill:'#fff'});
                 break;
             case 50:
@@ -344,7 +339,7 @@ var estadoTerciario = {
                 game.add.text(385,560,'0.45',{fontSize:'15px',fill:'#fff'});
                 break;
             case 130:
-                game.add.text(270,382,ganancias2.nodo4_1,{fontSize:'20px',fill:'#fff'});
+                game.add.text(270,382,'150',{fontSize:'20px',fill:'#fff'});
                 break;
             //probabilidades
             case 20:
@@ -352,7 +347,7 @@ var estadoTerciario = {
                 game.add.text(288,304,probabilidades2.nodo1_2,{fontSize:'15px',fill:'#fff'});
                 break;
             case 40:
-                game.add.text(530,145,probabilidades.nodo2_1,{fontSize:'15px',fill:'#fff'});
+                game.add.text(530,145,probabilidades2.nodo2_1,{fontSize:'15px',fill:'#fff'});
                 break;
             case 60:
                 game.add.text(530,180,probabilidades2.nodo2_2,{fontSize:'15px',fill:'#fff'});
@@ -365,7 +360,7 @@ var estadoTerciario = {
                 game.add.text(380,522,probabilidades2.nodo4_1,{fontSize:'15px',fill:'#fff'});
                 break;
             case 120:
-                game.add.text(393,587,'-100',{fontSize:'20px',fill:'#fff'});
+                game.add.text(393,587,'50',{fontSize:'20px',fill:'#fff'});
                 break;
         }
         
@@ -400,7 +395,7 @@ var estadoTerciario = {
                 //cursores = game.input.keyboard.addKey(Phaser.Keyboard.Q);
                 movX=0;
                 movY=0;
-                if((perg.x===540 && perg.y===97) || (perg.x===540 && perg.y===187)){ //Verifica que sean los pergaminos de la rama correcta
+                if((perg.x===430 && perg.y===472) || (perg.x===430 && perg.y===567)){ //Verifica que sean los pergaminos de la rama correcta
                  perg.kill();    
                  var pergaminoDes = pergaminosDesplegados.create(162,150,'pergaminoDesplegado');
                  pergaminoDes.scale.setTo(0.7,0.7);
@@ -414,11 +409,11 @@ var estadoTerciario = {
                     alert("Juego terminado. Éxitos.");
                     game.state.start('Menu');
                  }, this);
-                    if(perg.y===97){
-                        txtPergaminoError=game.add.text(230,220,correcto_1,{fontSize:'20px',fill:'#000000'});
+                    if(perg.y===472){
+                        txtPergaminoError=game.add.text(230,220,correcto_1_2,{fontSize:'20px',fill:'#000000'});
                     }else{
-                        if(perg.y===187){
-                        txtPergaminoError=game.add.text(230,220,correcto_2,{fontSize:'20px',fill:'#000000'});                            
+                        if(perg.y===567){
+                        txtPergaminoError=game.add.text(230,220,correcto_2_2,{fontSize:'20px',fill:'#000000'});                            
                         }
                     }
                    }else{
@@ -441,9 +436,6 @@ var estadoTerciario = {
                     txtPergaminoError=game.add.text(230,220,"Rama incorrecta.\n"+error_7+" \n Vuelva a intentarlo.",{fontSize:'20px',fill:'#000000'});
                    }
                 
-                
-            //    pergamino.body.immovable = true;
-              //  pergamino.body.collideWorldBounds = true;
             }
         
     }
@@ -452,24 +444,24 @@ var estadoTerciario = {
 
 var probabilidades2 = 
     {
-        "nodo1_1": "a",
-        "nodo1_2": "b",
-        "nodo2_1": "c",
-        "nodo2_2": "d",
+        "nodo1_1": "0.6",
+        "nodo1_2": "0.4",
+        "nodo2_1": "0.85",
+        "nodo2_2": "0.15",
         "nodo3_1": "e",
         "nodo3_2": "f",
-        "nodo4_1": "g",
+        "nodo4_1": "0.55",
         "nodo4_2": "h"
     }
 var ganancias2 = 
     {
-        "nodo1_1": "0",
-        "nodo1_2": "j",
-        "nodo2_1": "-g",
-        "nodo2_2": "0",
-        "nodo3_1": "i",
-        "nodo3_2": "-g",
-        "nodo4_1": "0g",
+        "nodo1_1": "120",
+        "nodo1_2": "450",
+        "nodo2_1": "20",
+        "nodo2_2": "120",
+        "nodo3_1": "420",
+        "nodo3_2": "20",
+        "nodo4_1": "150",
         "nodo4_2": "gh",
         "nodo5_1": "-1g00"
     }
@@ -484,5 +476,5 @@ var error_6 = "La estructura de los árboles de \n decisión consiste en árbole
 var error_7 = "Para trabajar sobre árboles de \n decisión puedes usar software como \n LucidChart, DIA, ConceptDrawOffice, \n CardRunners EV, Precision Tree, \n Modeler SPSS Statistics y Treeplan. \n";
 
 //Mensajes de rama correcta
-var correcto_1 = "¡Felicitaciones! Elegiste la rama\n correcta, este evento tiene una probabilidad\n de 0.8 y una ganancia de $300, así que lo\n más seguro es que obtengas una buena\n recompensa.\n ¡Gracias por jugar!.";
-var correcto_2 = "¡Felicitaciones! Elegiste la rama\n correcta, este evento tiene una probabilidad\n de 0.2 y una pérdida de -$100, así que es\n un poco probable que no pierdas tu\n recompensa, sin embargo es la \n mejor opción. ¡Gracias por jugar!.";
+var correcto_1_2 = "¡Felicitaciones! Elegiste la rama\n correcta, este evento tiene una probabilidad\n de 0.55 y una ganancia de $450, así que lo\n más seguro es que obtengas una buena\n recompensa.\n ¡Gracias por jugar!.";
+var correcto_2_2 = "¡Felicitaciones! Elegiste la rama\n correcta, este evento tiene una probabilidad\n de 0.45 y una pérdida de $50, así que es\n un poco probable que no pierdas tu\n recompensa, sin embargo es la \n mejor opción. ¡Gracias por jugar!.";

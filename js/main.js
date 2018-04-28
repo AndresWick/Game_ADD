@@ -310,6 +310,7 @@ var estadoPrincipal = {
 
 game.state.add('Juego',estadoPrincipal);
 game.state.add('Juego2',estadoSecundario);
+game.state.add('segundoNivel',estadoTerciario);
 game.state.add('Menu',estadoMenu);
 
 game.state.start('Menu');

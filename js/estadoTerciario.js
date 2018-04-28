@@ -3,7 +3,7 @@ var movX;
 var movY;
 var txtDatos;
 var tt;
-var estadoSecundario = {
+var estadoTerciario = {
 
     /**
      * Función encargada de cargar los recursos del estado.
@@ -24,6 +24,7 @@ var estadoSecundario = {
         game.load.image('btnXPergamino', 'img/btnX.png');
         game.load.audio("sonidoMoneda","sounds/coin.mp3");
         game.load.audio("sonidoSalto","sounds/jump.mp3");
+        game.load.spritesheet('sound-control', 'img/sound-control.png', 48, 40);
 
     },
 
@@ -63,8 +64,8 @@ var estadoSecundario = {
         //Dibuja las lineas entre plataformas
         var lienzo = game.add.graphics(0,0);
         //Color picker con CTRL+ALT+K
-        lienzo.beginFill(0xffffff);
-        lienzo.lineStyle(2,0xffffff,1);
+        lienzo.beginFill(0xff0000);
+        lienzo.lineStyle(2,0xff0000,1);
         
         //Dibuja la primera linea
         lienzo.moveTo(100,365);
@@ -242,7 +243,11 @@ var estadoSecundario = {
         barra8.body.immovable = true;
         barra8.body.collideWorldBounds = true;
         barra8.scale.setTo(0.6,0.6);
-          
+        
+                    
+        
+                         
+
         monedas = game.add.group();
         monedas.enableBody = true;
 
@@ -319,45 +324,45 @@ var estadoSecundario = {
             //ganancias
             case 10:
              //txtDatos=game.add.text(455,0,ganancias.nodo1_1,{fontsize:'10px',fill:'#fff'});
-               tt= game.add.text(455,47,ganancias.nodo1_1,{fontSize:'20px',fill:'#fff'});
+               tt= game.add.text(455,47,ganancias2.nodo1_1,{fontSize:'20px',fill:'#fff'});
                 break;
             case 30:
-                game.add.text(540,97,ganancias.nodo1_2,{fontSize:'20px',fill:'#fff'});
-                game.add.text(540,197,ganancias.nodo2_1,{fontSize:'20px',fill:'#fff'});
+                game.add.text(540,97,ganancias2.nodo1_2,{fontSize:'20px',fill:'#fff'});
+                game.add.text(540,197,ganancias2.nodo2_1,{fontSize:'20px',fill:'#fff'});
                 break;
             case 50:
-                game.add.text(455,237,ganancias.nodo2_2,{fontSize:'20px',fill:'#fff'});
+                game.add.text(455,237,ganancias2.nodo2_2,{fontSize:'20px',fill:'#fff'});
                 break;
             case 70:
-                game.add.text(540,382,ganancias.nodo3_1,{fontSize:'20px',fill:'#fff'});
+                game.add.text(540,382,ganancias2.nodo3_1,{fontSize:'20px',fill:'#fff'});
                 break;
             case 90:
-                game.add.text(540,482,ganancias.nodo3_2,{fontSize:'20px',fill:'#fff'});
-                game.add.text(405,472,ganancias.nodo1_2,{fontSize:'20px',fill:'#fff'});
+                game.add.text(540,482,ganancias2.nodo3_2,{fontSize:'20px',fill:'#fff'});
+                game.add.text(405,472,ganancias2.nodo1_2,{fontSize:'20px',fill:'#fff'});
                 break;
             case 110:
                 game.add.text(385,560,'0.45',{fontSize:'15px',fill:'#fff'});
                 break;
             case 130:
-                game.add.text(270,382,ganancias.nodo4_1,{fontSize:'20px',fill:'#fff'});
+                game.add.text(270,382,ganancias2.nodo4_1,{fontSize:'20px',fill:'#fff'});
                 break;
             //probabilidades
             case 20:
-                game.add.text(272,226,probabilidades.nodo1_1,{fontSize:'15px',fill:'#fff'});
-                game.add.text(288,304,probabilidades.nodo1_2,{fontSize:'15px',fill:'#fff'});
+                game.add.text(272,226,probabilidades2.nodo1_1,{fontSize:'15px',fill:'#fff'});
+                game.add.text(288,304,probabilidades2.nodo1_2,{fontSize:'15px',fill:'#fff'});
                 break;
             case 40:
                 game.add.text(530,145,probabilidades.nodo2_1,{fontSize:'15px',fill:'#fff'});
                 break;
             case 60:
-                game.add.text(530,180,probabilidades.nodo2_2,{fontSize:'15px',fill:'#fff'});
+                game.add.text(530,180,probabilidades2.nodo2_2,{fontSize:'15px',fill:'#fff'});
                 break;
             case 80:
                 game.add.text(528,434,'0.1',{fontSize:'15px',fill:'#fff'});
                 game.add.text(528,464,'0.9',{fontSize:'15px',fill:'#fff'});
                 break;
             case 100:
-                game.add.text(380,522,probabilidades.nodo4_1,{fontSize:'15px',fill:'#fff'});
+                game.add.text(380,522,probabilidades2.nodo4_1,{fontSize:'15px',fill:'#fff'});
                 break;
             case 120:
                 game.add.text(393,587,'-100',{fontSize:'20px',fill:'#fff'});
@@ -395,7 +400,7 @@ var estadoSecundario = {
                 //cursores = game.input.keyboard.addKey(Phaser.Keyboard.Q);
                 movX=0;
                 movY=0;
-                if((perg.x===565 && perg.y===97) || (perg.x===565 && perg.y===187)){ //Verifica que sean los pergaminos de la rama correcta
+                if((perg.x===540 && perg.y===97) || (perg.x===540 && perg.y===187)){ //Verifica que sean los pergaminos de la rama correcta
                  perg.kill();    
                  var pergaminoDes = pergaminosDesplegados.create(162,150,'pergaminoDesplegado');
                  pergaminoDes.scale.setTo(0.7,0.7);
@@ -407,7 +412,7 @@ var estadoSecundario = {
                      txtPergaminoError.kill();
                      btnX2.kill();
                     alert("Juego terminado. Éxitos.");
-                    game.state.start('segundoNivel');
+                    game.state.start('Menu');
                  }, this);
                     if(perg.y===97){
                         txtPergaminoError=game.add.text(230,220,correcto_1,{fontSize:'20px',fill:'#000000'});
@@ -445,28 +450,28 @@ var estadoSecundario = {
 
 }
 
-var probabilidades = 
+var probabilidades2 = 
     {
-        "nodo1_1": "0.7",
-        "nodo1_2": "0.3",
-        "nodo2_1": "0.8",
-        "nodo2_2": "0.2",
-        "nodo3_1": "0.1",
-        "nodo3_2": "0.9",
-        "nodo4_1": "0.55",
-        "nodo4_2": "0.45"
+        "nodo1_1": "a",
+        "nodo1_2": "b",
+        "nodo2_1": "c",
+        "nodo2_2": "d",
+        "nodo3_1": "e",
+        "nodo3_2": "f",
+        "nodo4_1": "g",
+        "nodo4_2": "h"
     }
-var ganancias = 
+var ganancias2 = 
     {
         "nodo1_1": "0",
-        "nodo1_2": "300",
-        "nodo2_1": "-100",
+        "nodo1_2": "j",
+        "nodo2_1": "-g",
         "nodo2_2": "0",
-        "nodo3_1": "300",
-        "nodo3_2": "-100",
-        "nodo4_1": "0",
-        "nodo4_2": "300",
-        "nodo5_1": "-100"
+        "nodo3_1": "i",
+        "nodo3_2": "-g",
+        "nodo4_1": "0g",
+        "nodo4_2": "gh",
+        "nodo5_1": "-1g00"
     }
 
 //Mensajes de pergaminos erroneos

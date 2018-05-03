@@ -3,6 +3,8 @@ var movX;
 var movY;
 var txtDatos;
 var tt;
+var errores = [];
+var mensajeError;
 var estadoSecundario = {
 
     /**
@@ -31,6 +33,13 @@ var estadoSecundario = {
      * Función encargada de mostrar los recursos en pantalla.
      */
     create:function() {
+        errores.push(error_1);
+        errores.push(error_2);
+        errores.push(error_3);
+        errores.push(error_4);
+        errores.push(error_5);
+        errores.push(error_6);
+        errores.push(error_7);
         puntaje=0;
         movX=2;
         movY=450;
@@ -392,6 +401,7 @@ var estadoSecundario = {
             if(puntaje>129){
                 //Se detiene el movimiento del jugador para que no tome mas pergaminos 
                 personaje.body.gravity.y=0;
+                personaje.body.velocity.y=-0;
                 //cursores = game.input.keyboard.addKey(Phaser.Keyboard.Q);
                 movX=0;
                 movY=0;
@@ -418,7 +428,7 @@ var estadoSecundario = {
                     }
                    }else{
                 perg.kill();
-                       tt.visible=false;
+                    tt.visible=false;
 
                  //person.body.moves = false;
                  var pergaminoDes = pergaminosDesplegados.create(162,150,'pergaminoDesplegado');
@@ -433,12 +443,14 @@ var estadoSecundario = {
                     alert("Juego perdido. Éxitos.");
                     game.state.start('Menu');
                  }, this);
-                    txtPergaminoError=game.add.text(230,220,"Rama incorrecta.\n"+error_7+" \n Vuelva a intentarlo.",{fontSize:'20px',fill:'#000000'});
+                       mensajeError = Math.floor(Math.random()*((errores.length)-1));
+                    //txtPergaminoError=game.add.text(230,220,"Rama incorrecta.\n"+error_7+" \n Vuelva a intentarlo.",
+                       txtPergaminoError=game.add.text(230,220,"Rama incorrecta.\n"+errores[mensajeError]+" \n Vuelva a intentarlo.",{fontSize:'20px',fill:'#000000'});
                    }
                 
                 
-            //    pergamino.body.immovable = true;
-              //  pergamino.body.collideWorldBounds = true;
+                //pergamino.body.immovable = true;
+              //pergamino.body.collideWorldBounds = true;
             }
         
     }
@@ -468,6 +480,8 @@ var ganancias =
         "nodo4_2": "300",
         "nodo5_1": "-100"
     }
+
+
 
 //Mensajes de pergaminos erroneos
 var error_1 = "Analizar decisiones secuenciales basadas \n en el uso de probabilidades asociadas y \n resultados anteriores es la aplicación más \n común de los ADD. \n";
